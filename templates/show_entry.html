@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if entry %}
+    <h1>{{ entry['formatted_date'] }}</h1> <!-- Formatted date -->
+    <form action="/update/{{ entry['id'] }}" method="post">
+        <textarea id="content" name="content" {%if not same_day %}readonly{% endif %}>{{ entry['content'] }}</textarea>
+        <button type="submit">Update</button>
+    </form>
+{% else %}
+    <p>Entry not found.</p>
+{% endif %}
+{% endblock %}

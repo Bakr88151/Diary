@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>My Diary</h1>
+
+<form action="/add" method="post">
+    <textarea name="content" placeholder="Write your entry here..." required></textarea>
+    <button type="submit">Add Entry</button>
+</form>
+
+<hr>
+
+{% if entries %}
+    <h2>Entries</h2>
+    <ul>
+    {% for entry in entries %}
+        <li>
+            <a href="{{ url_for('show_entry', entry_id=entry['id']) }}">
+                <p><strong>{{ entry['formatted_date'] }}</strong></p> <!-- Formatted date -->
+                <p>{{ entry['content'][:50] }}{% if entry['content']|length > 50 %}...{% endif %}</p>
+            </a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No entries yet.</p>
+{% endif %}
+{% endblock %}
